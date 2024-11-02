@@ -10,3 +10,4 @@ $ cd ~/your_ws
 $ colcon build --symlink-install
 $ source ~/your_ws/install/setup.bash
 ```
+micro-rosのセットアップも必要
