@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.5)
+project(esp_srvs)
+
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/Params.srv"
+  "srv/ParameterUpdate.srv"
+  "srv/SimpleCommand.srv"
+)
+ament_export_dependencies(rosidl_default_runtime)
+
+ament_package()
