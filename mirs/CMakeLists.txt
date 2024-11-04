@@ -6,6 +6,12 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(mirs_msgs REQUIRED)
 
+add_executable(test_cli src/test.cpp)
+ament_target_dependencies(test_cli
+  rclcpp
+  mirs_msgs
+)
+
 add_executable(update src/parameter_update.cpp)
 ament_target_dependencies(update
   rclcpp
@@ -25,6 +31,7 @@ ament_target_dependencies(reset
 )
 
 install(TARGETS
+  test_cli
   update
   reboot
   reset
