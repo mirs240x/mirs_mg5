@@ -1,42 +1,40 @@
-#include <rclcpp/rclcpp.hpp>
+#include "rclcpp/rclcpp.hpp"
 #include "mirs_msgs/srv/simple_command.hpp"
 
-class RebootClient : public rclcpp::Node
-{
-public:
-    RebootClient() : Node("reboot_client")
-    {
-        client_ = this->create_client<mirs_msgs::srv::SimpleCommand>("reboot");
-    }
+#include <chrono>
+#include <cstdlib>
+#include <memory>
 
-    void send_reboot_request()
-    {
-        auto request = std::make_shared<mirs_msgs::srv::SimpleCommand::Request>();
-
-        auto future = client_->async_send_request(request);
-
-        // 結果を待機
-        if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) ==
-            rclcpp::FutureReturnCode::SUCCESS)
-        {
-            RCLCPP_INFO(this->get_logger(), "Reboot response: success");
-        }
-        else
-        {
-            RCLCPP_ERROR(this->get_logger(), "Failed to call service reboot");
-        }
-    }
-
-private:
-    rclcpp::Client<mirs_msgs::srv::SimpleCommand>::SharedPtr client_;
-};
+using namespace std::chrono_literals;
 
 int main(int argc, char **argv)
 {
-    rclcpp::init(argc, argv);
-    auto client_node = std::make_shared<RebootClient>();
-    client_node->send_reboot_request();
-    rclcpp::spin(client_node);
-    rclcpp::shutdown();
-    return 0;
+  rclcpp::init(argc, argv);
+
+  std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("reboot");
+  rclcpp::Client<mirs_msgs::srv::SimpleCommand>::SharedPtr client =
+    node->create_client<mirs_msgs::srv::SimpleCommand>("reboot");
+
+  auto request = std::make_shared<mirs_msgs::srv::SimpleCommand::Request>();
+
+  while (!client->wait_for_service(1s)) {
+    if (!rclcpp::ok()) {
+      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Interrupted while waiting for the service. Exiting.");
+      return 0;
+    }
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "service not available, waiting again...");
+  }
+
+  auto result = client->async_send_request(request);
+  // Wait for the result.
+  if (rclcpp::spin_until_future_complete(node, result) ==
+    rclcpp::FutureReturnCode::SUCCESS)
+  {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Success");
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to call service");
+  }
+
+  rclcpp::shutdown();
+  return 0;
 }

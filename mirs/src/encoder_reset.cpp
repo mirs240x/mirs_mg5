@@ -12,8 +12,7 @@ int main(int argc, char **argv)
   rclcpp::init(argc, argv);
 
   std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("encoder_reset");
-  rclcpp::Client<mirs_msgs::srv::SimpleCommand>::SharedPtr client =
-    node->create_client<mirs_msgs::srv::SimpleCommand>("reset_encoder");
+  rclcpp::Client<mirs_msgs::srv::SimpleCommand>::SharedPtr client = node->create_client<mirs_msgs::srv::SimpleCommand>("reset_encoder");
 
   auto request = std::make_shared<mirs_msgs::srv::SimpleCommand::Request>();
 
@@ -32,7 +31,7 @@ int main(int argc, char **argv)
   {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Success");
   } else {
-    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to call service add_two_ints");
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to call service");
   }
 
   rclcpp::shutdown();

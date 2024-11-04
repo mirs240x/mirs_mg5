@@ -1,0 +1,10 @@
+parameter_update_client:  # ノード名（C++プログラム内のノード名に合わせる）
+  ros__parameters:
+    wheel_radius: 1.5    # 車輪の半径 [m] 例: 5 cm
+    wheel_base: 1.5       # 車輪間の距離 [m] 例: 30 cm
+    rkp: 0.0              # 右車輪のPゲイン
+    rki: 0.0             # 右車輪のIゲイン
+    rkd: 0.0            # 右車輪のDゲイン
+    lkp: 0.0              # 左車輪のPゲイン
+    lki: 0.0             # 左車輪のIゲイン
+    lkd: 0.0            # 左車輪のDゲイン
