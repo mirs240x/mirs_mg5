@@ -19,7 +19,7 @@ public:
         if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) ==
             rclcpp::FutureReturnCode::SUCCESS)
         {
-            RCLCPP_INFO(this->get_logger(), "Reboot response: %s", future.get()->message.c_str());
+            RCLCPP_INFO(this->get_logger(), "Reboot response: success");
         }
         else
         {

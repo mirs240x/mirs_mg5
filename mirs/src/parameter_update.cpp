@@ -55,7 +55,7 @@ public:
         // 結果を待機
         if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), result_future) ==
             rclcpp::executor::FutureReturnCode::SUCCESS) {
-            RCLCPP_INFO(this->get_logger(), "Service response: %s", result_future.get()->message.c_str());
+            RCLCPP_INFO(this->get_logger(), "Service response: success");
         } else {
             RCLCPP_ERROR(this->get_logger(), "Service call failed.");
         }
