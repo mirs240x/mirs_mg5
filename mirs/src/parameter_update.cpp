@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     auto node = rclcpp::Node::make_shared("parameter_update_client");
 
     // サービスクライアントの作成
-    auto client = node->create_client<mirs_msgs::srv::ParameterUpdate>("update_parameters");
+    auto client = node->create_client<mirs_msgs::srv::ParameterUpdate>("esp_update");
 
     // YAMLファイルからパラメータを読み込むための宣言
     node->declare_parameter("wheel_radius", 1.0);
