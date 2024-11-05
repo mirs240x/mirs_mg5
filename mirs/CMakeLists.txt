@@ -46,11 +46,7 @@ ament_target_dependencies(reset
 )
 
 install(TARGETS
-<<<<<<< HEAD
   odometry_publisher
-=======
-  test_cli
->>>>>>> 381be135721e80767c7192cc7c16001d53d3b3c2
   update
   reboot
   reset
