@@ -1,4 +1,5 @@
 #include "rclcpp/rclcpp.hpp"
+#include "rclcpp/executor.hpp"
 #include "mirs_msgs/srv/parameter_update.hpp"
 
 class ParameterUpdateClient : public rclcpp::Node
@@ -7,8 +8,8 @@ public:
     ParameterUpdateClient() : Node("parameter_update_client")
     {
         // パラメータを宣言
-        this->declare_parameter<double>("wheel_radius", 0.1);
-        this->declare_parameter<double>("wheel_base", 0.15);
+        this->declare_parameter<double>("wheel_radius", 0.04);
+        this->declare_parameter<double>("wheel_base", 0.4);
         this->declare_parameter<double>("rkp", 10);
         this->declare_parameter<double>("rki", 10);
         this->declare_parameter<double>("rkd", 10);
@@ -54,7 +55,7 @@ public:
         
         // 結果を待機
         if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), result_future) ==
-            rclcpp::executor::FutureReturnCode::SUCCESS) {
+            rclcpp::FutureReturnCode::SUCCESS) {
             RCLCPP_INFO(this->get_logger(), "Service response: %s", result_future.get()->message.c_str());
         } else {
             RCLCPP_ERROR(this->get_logger(), "Service call failed.");

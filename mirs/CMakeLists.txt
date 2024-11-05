@@ -5,6 +5,21 @@ project(mirs)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(mirs_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2 REQUIRED)
+
+add_executable(odometry_publisher src/odometry_publisher.cpp)
+ament_target_dependencies(odometry_publisher 
+  rclcpp
+  std_msgs
+  nav_msgs
+  geometry_msgs
+  tf2_ros
+  tf2
+)
 
 add_executable(update src/parameter_update.cpp)
 ament_target_dependencies(update
@@ -25,10 +40,16 @@ ament_target_dependencies(reset
 )
 
 install(TARGETS
+  odometry_publisher
   update
   reboot
   reset
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 ament_package()
