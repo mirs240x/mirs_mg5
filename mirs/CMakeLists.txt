@@ -21,6 +21,12 @@ ament_target_dependencies(odometry_publisher
   tf2
 )
 
+add_executable(basic src/basic_command.cpp)
+ament_target_dependencies(basic
+  rclcpp
+  mirs_msgs
+)
+
 add_executable(test_cli src/test.cpp)
 ament_target_dependencies(test_cli
   rclcpp
@@ -50,6 +56,7 @@ install(TARGETS
   update
   reboot
   reset
+  basic
   DESTINATION lib/${PROJECT_NAME}
 )
 

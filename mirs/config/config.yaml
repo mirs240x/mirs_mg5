@@ -1,11 +1,11 @@
-esp_client:
+/**:
   ros__parameters:
-    wheel_radius: 0.1
-    wheel_base: 0.15
+    wheel_radius: 0.04
+    wheel_base: 0.38
     count_per_rev: 4096
-    rkp : 1.0
-    rki : 1.0
-    rkd : 1.0
-    lkp : 1.0
-    lki : 1.0
-    lkd : 1.0
+    rkp : 10.0
+    rki : 10.0
+    rkd : 10.0
+    lkp : 10.0
+    lki : 10.0
+    lkd : 10.0

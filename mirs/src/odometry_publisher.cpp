@@ -17,23 +17,11 @@ public:
         this->declare_parameter<double>("wheel_radius", 0.1);
         this->declare_parameter<double>("wheel_base", 0.15);
         this->declare_parameter<double>("count_per_rev", 4096);
-        this->declare_parameter<double>("rkp", 10);
-        this->declare_parameter<double>("rki", 10);
-        this->declare_parameter<double>("rkd", 10);
-        this->declare_parameter<double>("lkp", 10);
-        this->declare_parameter<double>("lki", 10);
-        this->declare_parameter<double>("lkd", 10);
 
         // YAMLファイルからパラメータを取得
         wheel_radius = this->get_parameter("wheel_radius").as_double();
         wheel_base = this->get_parameter("wheel_base").as_double();
         count_per_rev = this->get_parameter("count_per_rev").as_double();
-        rkp = this->get_parameter("rkp").as_double();
-        rki = this->get_parameter("rki").as_double();
-        rkd = this->get_parameter("rkd").as_double();
-        lkp = this->get_parameter("lkp").as_double();
-        lki = this->get_parameter("lki").as_double();
-        lkd = this->get_parameter("lkd").as_double();
 
         // サブスクライバーの作成
         encoder_sub_ = this->create_subscription<std_msgs::msg::Int32MultiArray>(
@@ -139,7 +127,7 @@ private:
     int32_t left_encoder_, right_encoder_;
     int32_t last_left_encoder_, last_right_encoder_;
 
-    double wheel_radius,wheel_base,count_per_rev, rkp, rki, rkd, lkp, lki, lkd;
+    double wheel_radius,wheel_base,count_per_rev;
 
     // ロボットの位置と姿勢
     double x_, y_, theta_;
