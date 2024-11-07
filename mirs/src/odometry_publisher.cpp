@@ -16,7 +16,7 @@ public:
         // パラメータを宣言
         this->declare_parameter<double>("wheel_radius", 0.1);
         this->declare_parameter<double>("wheel_base", 0.15);
-        this->declare_parameter<double>("count_per_rev", 4096);
+        this->declare_parameter<double>("count_per_rev", 4096.0);
 
         // YAMLファイルからパラメータを取得
         wheel_radius = this->get_parameter("wheel_radius").as_double();

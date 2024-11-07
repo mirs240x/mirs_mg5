@@ -21,6 +21,12 @@ ament_target_dependencies(odometry_publisher
   tf2
 )
 
+add_executable(parameter_publisher src/parameter_publisher.cpp)
+ament_target_dependencies(parameter_publisher
+  rclcpp
+  mirs_msgs
+)
+
 add_executable(basic src/basic_command.cpp)
 ament_target_dependencies(basic
   rclcpp
@@ -53,6 +59,7 @@ ament_target_dependencies(reset
 
 install(TARGETS
   odometry_publisher
+  parameter_publisher
   update
   reboot
   reset
