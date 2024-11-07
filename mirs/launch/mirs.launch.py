@@ -15,6 +15,15 @@ def generate_launch_description():
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
 
+    parameter_node = Node(
+        package='mirs',
+        executable='parameter_publisher',
+        name='parameter_publisher',
+        output='screen',
+        parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
+    )
+
+
     micro_ros = Node(
         package='micro_ros_agent',
         executable='micro_ros_agent',
@@ -26,5 +35,6 @@ def generate_launch_description():
     # odometry_nodeとmicro_rosの両方をLaunchDescriptionに追加
     return LaunchDescription([
         odometry_node,
+        parameter_node,
         micro_ros  # ここでmicro_rosを追加
     ])
