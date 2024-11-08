@@ -5,7 +5,7 @@ import os
 
 def generate_launch_description():
     # YAMLファイルのパスを適切に展開
-    config_file_path = os.path.expanduser('~/Documents/mirs2403/src/mirs_mg5/mirs/config/config.yaml')
+    config_file_path = os.path.expanduser('~/mirs2403/src/mirs_mg5/mirs/config/config.yaml')
 
     odometry_node = Node(
         package='mirs',
@@ -35,6 +35,10 @@ def generate_launch_description():
     # odometry_nodeとmicro_rosの両方をLaunchDescriptionに追加
     return LaunchDescription([
         odometry_node,
+<<<<<<< HEAD
         # parameter_node,
+=======
+        #parameter_node,
+>>>>>>> be69c119359b6447cda68187fb66a30a9496c073
         micro_ros  # ここでmicro_rosを追加
     ])
