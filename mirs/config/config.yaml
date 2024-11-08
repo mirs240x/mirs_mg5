@@ -3,9 +3,9 @@
     wheel_radius: 0.04
     wheel_base: 0.38
     count_per_rev: 4096.0
-    rkp : 10.0
-    rki : 10.0
-    rkd : 10.0
-    lkp : 10.0
-    lki : 10.0
-    lkd : 10.0
+    rkp : 172.5
+    rki : 87.0
+    rkd : 18.5
+    lkp : 172.5
+    lki : 87.0
+    lkd : 18.5

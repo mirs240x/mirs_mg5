@@ -29,12 +29,12 @@ def generate_launch_description():
         executable='micro_ros_agent',
         name='micro_ros_agent',
         output='screen',
-        arguments=['serial', '--dev', '/dev/ttyUSB0', '-v6']
+        arguments=['serial', '--dev', '/dev/ttyUSB1', '-v6']
     )
     
     # odometry_nodeとmicro_rosの両方をLaunchDescriptionに追加
     return LaunchDescription([
         odometry_node,
-        parameter_node,
+        # parameter_node,
         micro_ros  # ここでmicro_rosを追加
     ])
