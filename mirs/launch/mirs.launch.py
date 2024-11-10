@@ -35,7 +35,7 @@ def generate_launch_description():
     # odometry_nodeとmicro_rosの両方をLaunchDescriptionに追加
     return LaunchDescription([
         odometry_node,
-
+	parameter_node
         parameter_node,
 
         micro_ros  # ここでmicro_rosを追加

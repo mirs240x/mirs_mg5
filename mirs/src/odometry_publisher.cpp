@@ -14,8 +14,8 @@ public:
           x_(0.0), y_(0.0), theta_(0.0)
     {
         // パラメータを宣言
-        this->declare_parameter<double>("wheel_radius", 0.1);
-        this->declare_parameter<double>("wheel_base", 0.15);
+        this->declare_parameter<double>("wheel_radius", 0.04);
+        this->declare_parameter<double>("wheel_base", 0.38);
         this->declare_parameter<double>("count_per_rev", 4096.0);
 
         // YAMLファイルからパラメータを取得
@@ -32,7 +32,7 @@ public:
 
         // タイマーで定期的にオドメトリをパブリッシュ
         timer_ = this->create_wall_timer(
-            std::chrono::milliseconds(100), std::bind(&OdometryPublisher::publish_odometry, this));
+            std::chrono::milliseconds(50), std::bind(&OdometryPublisher::publish_odometry, this));
 
         // TFブロードキャスター
         tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
@@ -67,9 +67,9 @@ private:
         double delta_theta = (right_distance - left_distance) / wheel_base;
 
         // ロボットの位置と姿勢を更新
+        theta_ += delta_theta;
         x_ += delta_distance * cos(theta_);
         y_ += delta_distance * sin(theta_);
-        theta_ += delta_theta;
 
         // オドメトリメッセージの作成
         auto odom_msg = nav_msgs::msg::Odometry();
@@ -92,8 +92,8 @@ private:
         odom_msg.child_frame_id = "base_link";
 
         // 速度を設定（今回は仮で0としていますが、実際はエンコーダの変化量から計算します）
-        odom_msg.twist.twist.linear.x = delta_distance / 0.1;  // 0.1秒周期なので0.1で割る
-        odom_msg.twist.twist.angular.z = delta_theta / 0.1;
+        odom_msg.twist.twist.linear.x = delta_distance / 0.05;  // 0.1秒周期なので0.1で割る
+        odom_msg.twist.twist.angular.z = delta_theta / 0.05;
 
         // オドメトリをパブリッシュ
         odom_pub_->publish(odom_msg);
