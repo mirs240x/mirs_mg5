@@ -8,47 +8,29 @@ from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
+
+
 def generate_launch_description():
-    esp_port = DeclareLaunchArgument(
-        'esp_port', default_value='/dev/ttyUSB1',
-        description='Set esp32 usb port.')
+    # Declare arguments #
     lidar_port = DeclareLaunchArgument(
         'lidar_port', default_value='/dev/ttyUSB0',
         description='Set lidar usb port.')
-    
-    # YAMLファイルのパスを適切に展開
-    config_file_path = os.path.join(get_package_share_directory('mirs'),'config','config.yaml')
 
-    odometry_node = Node(
-        package='mirs',
-        executable='odometry_publisher',
-        name='odometry_publisher',
-        output='screen',
-        parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
-    )
-
-    parameter_node = Node(
-        package='mirs',
-        executable='parameter_publisher',
-        name='parameter_publisher',
-        output='screen',
-        parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
-    )
-
-    micro_ros = Node(
-        package='micro_ros_agent',
-        executable='micro_ros_agent',
-        name='micro_ros_agent',
-        output='screen',
-        arguments=['serial', '--dev', LaunchConfiguration('esp_port'), '-v6']
-    )
-
+    # Launch files and Nodes #
     sllidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('sllidar_ros2'), 'launch', 'sllidar_s1_launch.py')
         ),
         launch_arguments={'serial_port': LaunchConfiguration('lidar_port')}.items()
     )
+
+#        PythonLaunchDescriptionSource([os.path.join(
+#            get_package_share_directory('sllidar_ros2'),
+#            'launch'),
+#            '/sllidar_s1_launch.py']),
+#        launch_arguments={'serial_port': lidar_port}.items(),
+#        condition=LaunchConfigurationEquals('lidar', 'sllidar')
+#    )
 
     tf2_ros_node = Node(
         package='tf2_ros',
@@ -57,13 +39,11 @@ def generate_launch_description():
         arguments=["0", "0", "0.35", "-1.57", "0", "0", "base_link", "laser"]
     )
 
+    
+
     ld = LaunchDescription()
-    ld.add_action(esp_port)
     ld.add_action(lidar_port)
 
-    ld.add_action(odometry_node)
-    ld.add_action(parameter_node)
-    ld.add_action(micro_ros)
     ld.add_action(sllidar_launch)
     ld.add_action(tf2_ros_node)
 
