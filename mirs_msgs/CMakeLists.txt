@@ -9,6 +9,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ParameterUpdate.srv"
   "srv/SimpleCommand.srv"
   "srv/BasicCommand.srv"
+  "srv/NumberCommand.srv"
   "msg/BasicParam.msg"
 )
 ament_export_dependencies(rosidl_default_runtime)
