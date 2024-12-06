@@ -16,8 +16,9 @@ def generate_launch_description():
         'lidar_port', default_value='/dev/ttyUSB0',
         description='Set lidar usb port.')
     
-    # YAMLファイルのパスを適切に展開
+    # YAMLファイルのパス（エラーが起きるときは絶対パスに変更を推奨）
     config_file_path = os.path.join(get_package_share_directory('mirs'),'config','config.yaml')
+    #config_file_path = your_file_path
 
     odometry_node = Node(
         package='mirs',
