@@ -13,8 +13,9 @@ def generate_launch_description():
         'esp_port', default_value='/dev/ttyUSB1',
         description='Set esp32 usb port.')
     
-    # YAMLファイルのパスを適切に展開
+    # YAMLファイルのパス（エラーが起きるときは絶対パスに変更を推奨）
     config_file_path = os.path.join(get_package_share_directory('mirs'),'config','config.yaml')
+    #config_file_path = your_file_path
 
     odometry_node = Node(
         package='mirs',
@@ -31,7 +32,6 @@ def generate_launch_description():
         output='screen',
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
-
 
     micro_ros = Node(
         package='micro_ros_agent',

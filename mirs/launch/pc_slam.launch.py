@@ -18,14 +18,14 @@ def generate_launch_description():
     declare_arg_slam_config_file = DeclareLaunchArgument(
         'slam_config_file',
         default_value=os.path.join(
-            get_package_share_directory('mirs_slam'),
+            get_package_share_directory('mirs'),
             'config',
             'slam_toolbox_config.yaml'),
         description='The full path to the config file for SLAM')
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file', default_value=os.path.join(
-            get_package_share_directory('mirs_slam'),
+            get_package_share_directory('mirs'),
             'rviz',
             'default.rviz'),
         description='The full path to the rviz file'
