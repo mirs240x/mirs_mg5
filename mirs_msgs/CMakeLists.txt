@@ -11,6 +11,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/BasicCommand.srv"
   "srv/NumberCommand.srv"
   "msg/BasicParam.msg"
+  "action/Trigger.action"
+  "action/ParameterTrigger.action"
 )
 ament_export_dependencies(rosidl_default_runtime)
 

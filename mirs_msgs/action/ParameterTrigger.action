@@ -1,0 +1,8 @@
+#Goal
+float32 parameter
+---
+#Result
+bool success
+---
+#Feedback
+float32 feedback
