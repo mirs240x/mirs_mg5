@@ -28,6 +28,7 @@ def generate_launch_description():
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
 
+    """
     parameter_node = Node(
         package='mirs',
         executable='parameter_publisher',
@@ -35,6 +36,7 @@ def generate_launch_description():
         output='screen',
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
+    """
 
     micro_ros = Node(
         package='micro_ros_agent',
@@ -63,7 +65,7 @@ def generate_launch_description():
     ld.add_action(lidar_port)
 
     ld.add_action(odometry_node)
-    ld.add_action(parameter_node)
+    #ld.add_action(parameter_node)
     ld.add_action(micro_ros)
     ld.add_action(sllidar_launch)
     ld.add_action(tf2_ros_node)
