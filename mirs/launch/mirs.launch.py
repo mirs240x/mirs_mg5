@@ -29,7 +29,7 @@ def generate_launch_description():
         output='screen',
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
-
+    
     parameter_node = Node(
         package='mirs',
         executable='parameter_publisher',
@@ -37,7 +37,7 @@ def generate_launch_description():
         output='screen',
         parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
     )
-
+    
     micro_ros = Node(
         package='micro_ros_agent',
         executable='micro_ros_agent',
