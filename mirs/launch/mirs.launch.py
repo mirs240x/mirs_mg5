@@ -2,7 +2,9 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler, TimerAction, LogInfo, ExecuteProcess
+from launch.substitutions import FindExecutable
+from launch.event_handlers import OnProcessStart
 from launch.conditions import LaunchConfigurationEquals
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -58,6 +60,34 @@ def generate_launch_description():
         arguments=["0", "0", "0.35", "-1.57", "0", "0", "base_link", "laser"]
     )
 
+    pre_update = ExecuteProcess(
+        cmd=[[
+            FindExecutable(name='ros2'),
+            ' run',
+            ' mirs',
+            ' update',
+            ' --ros-args',
+            ' --params-file ',
+            config_file_path
+        ]],
+        shell=True
+    )
+
+    parameter_change_action = RegisterEventHandler(
+        OnProcessStart(
+            target_action=micro_ros,
+            on_start=[
+                TimerAction(
+                    period=2.0,
+                    actions=[
+                        pre_update,
+                        LogInfo(msg='Change the parameter of the node')
+                    ],
+                )
+            ]
+        )
+    )
+
     ld = LaunchDescription()
     ld.add_action(esp_port)
     ld.add_action(lidar_port)
@@ -67,5 +97,7 @@ def generate_launch_description():
     ld.add_action(micro_ros)
     ld.add_action(sllidar_launch)
     ld.add_action(tf2_ros_node)
+
+    ld.add_action(parameter_change_action)
 
     return ld
