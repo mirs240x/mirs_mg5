@@ -17,13 +17,14 @@ def generate_launch_description():
     config_file_path = os.path.join(get_package_share_directory('mirs'),'config','config.yaml')
     #config_file_path = your_file_path
 
-    odometry_node = Node(
-        package='mirs',
-        executable='odometry_publisher',
-        name='odometry_publisher',
-        output='screen',
-        parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
-    )
+    
+    #odometry_node = Node(
+    #    package='mirs',
+    #    executable='odometry_publisher',
+    #    name='odometry_publisher',
+    #    output='screen',
+    #    parameters=[config_file_path]  # 修正点: カンマを削除して適切にリストとして指定
+    #)
 
     parameter_node = Node(
         package='mirs',
